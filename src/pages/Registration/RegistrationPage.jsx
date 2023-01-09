@@ -1,4 +1,4 @@
-import RegistrationForm from 'components/RegistrationForm/RegistrationForm';
+import RegistrationForm from 'components/RegistratinForm/RegistrationForm';
 import { BottomText, Main, StyledLink } from 'pages/common/common.styled';
 import ParticlesBox from 'components/ParticlesBox/ParticlesBox';
 import { CenteredContainer } from 'pages/common/common.styled';

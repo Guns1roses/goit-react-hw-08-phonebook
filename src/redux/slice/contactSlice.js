@@ -1,28 +1,41 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import axios from 'axios';
+
+const axiosBaseQuery =
+  ({ baseUrl } = { baseUrl: '' }) =>
+  async ({ url, method, data, params }) => {
+    try {
+      const result = await axios({ url: baseUrl + url, method, data, params });
+      return { data: result.data };
+    } catch (axiosError) {
+      let err = axiosError;
+      return {
+        error: {
+          status: err.response?.status,
+          data: err.response?.data || err.message,
+        },
+      };
+    }
+  };
 
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://631498bffa82b738f74a7ef9.mockapi.io/api/v1/',
+  baseQuery: axiosBaseQuery({
+    baseUrl: 'https://connections-api.herokuapp.com/',
   }),
   tagTypes: ['Contacts'],
 
   endpoints: builder => ({
     getContacts: builder.query({
-      query: () => `contacts/`,
-      providesTags: ['Contacts'],
-    }),
-
-    getContactById: builder.query({
-      query: id => `contacts/${id}`,
+      query: () => ({ url: 'contacts/', method: 'get' }),
       providesTags: ['Contacts'],
     }),
 
     addContacts: builder.mutation({
       query: contact => ({
         url: `contacts/`,
-        method: 'POST',
-        body: contact,
+        method: 'post',
+        data: contact,
       }),
       invalidatesTags: ['Contacts'],
     }),
@@ -30,17 +43,16 @@ export const contactsApi = createApi({
     removeContacts: builder.mutation({
       query: id => ({
         url: `contacts/${id}`,
-        method: 'DELETE',
-        body: id,
+        method: 'delete',
       }),
       invalidatesTags: ['Contacts'],
     }),
 
-    updateContactbyId: builder.mutation({
+    updateContactById: builder.mutation({
       query: contact => ({
         url: `contacts/${contact.id}`,
-        method: 'PUT',
-        body: contact,
+        method: 'patch',
+        data: contact.values,
       }),
       invalidatesTags: ['Contacts'],
     }),
@@ -51,7 +63,7 @@ export const {
   useGetContactsQuery,
   useAddContactsMutation,
   useRemoveContactsMutation,
-  useUpdateContactbyIdMutation,
+  useUpdateContactByIdMutation,
   useGetContactByIdQuery,
 } = contactsApi;
 

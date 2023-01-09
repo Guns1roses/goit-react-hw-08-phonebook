@@ -1,32 +1,35 @@
-import * as yup from 'yup';
+import { useFormik } from 'formik';
+import { validationSchemaContact } from 'helpers/validation/schemas';
 import { useContacts } from './useContacts';
-
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { useToggle } from './useToggle';
-import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const nameRegExp = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
+export const useForm = type => {
+  const { id: contactId } = useParams();
+  const { contacts = [], addContact, updateContact, isLoading } = useContacts();
+  const contact = contacts.find(el => el.id === contactId);
+  const navigate = useNavigate();
 
-const phoneRegExp =
-  /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/;
+  const getData = () => {
+    if (type === 'add' || !contact) {
+      return { name: '', number: '' };
+    }
 
-const schema = yup.object().shape({
-  name: yup.string().min(3).matches(nameRegExp, 'Name is not valid').required(),
-  number: yup
-    .string()
-    .matches(phoneRegExp, 'Phone number is not valid')
-    .required(),
-});
+    return { name: contact.name, number: contact.number };
+  };
 
-const initialValues = {
-  name: '',
-  number: '',
-};
-
-export const useForm = () => {
-  const contactId = useSelector(state => state.updateContactForm.id);
-  const { contacts, addContact, updateContact } = useContacts();
-  const { toggleAddForm, toggleUpdateForm } = useToggle();
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: getData(),
+    validationSchema: validationSchemaContact,
+    onSubmit: (a, b) => {
+      if (type === 'add') {
+        handleAddContact(a, b);
+      } else {
+        handleUpdateContact(a, b);
+      }
+    },
+  });
 
   const handleAddContact = async (values, { resetForm }) => {
     const isInclude = contacts.some(
@@ -38,12 +41,16 @@ export const useForm = () => {
     }
 
     try {
-      await addContact(values);
-      toggleAddForm();
+      const res = await addContact(values);
+
+      if (res.error) {
+        throw new Error();
+      }
       Notify.success(`${values.name} was successfully added to contacts`);
       resetForm();
+      navigate('/contacts');
     } catch (error) {
-      Notify.success(`Something went wrong`);
+      Notify.failure(`Something went wrong`);
     }
   };
 
@@ -60,14 +67,17 @@ export const useForm = () => {
     }
 
     try {
-      await updateContact(values);
-      toggleUpdateForm();
+      const res = await updateContact({ values, id: contactId });
+      if (res.error) {
+        throw new Error();
+      }
+
       Notify.success(`${values.name} was successfully update contacts`);
       resetForm();
+      navigate('/contacts');
     } catch (error) {
-      Notify.success(`Something went wrong`);
+      Notify.failure(`Something went wrong`);
     }
   };
-
-  return { initialValues, schema, handleAddContact, handleUpdateContact };
+  return { formik, isLoading, contact };
 };

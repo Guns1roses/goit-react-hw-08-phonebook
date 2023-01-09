@@ -3,7 +3,7 @@ import { useContacts } from 'hooks/useContacts';
 import { useFilter } from 'hooks/useFilter';
 
 export const useFilteredContacts = () => {
-  const { contacts } = useContacts();
+  const { contacts, isLoading } = useContacts();
   const { filter, setFilter } = useFilter();
 
   const filteredContacts = useMemo(() => {
@@ -13,5 +13,5 @@ export const useFilteredContacts = () => {
     );
   }, [filter, contacts]);
 
-  return [filteredContacts, filter, setFilter];
+  return { filteredContacts, filter, setFilter, isLoading };
 };

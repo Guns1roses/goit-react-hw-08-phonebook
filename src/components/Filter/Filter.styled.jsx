@@ -2,24 +2,23 @@ import styled from 'styled-components';
 
 export const FilterWrapper = styled.div`
   padding: 20px 40px;
-  background-color: #e6f3fa;
-  border-bottom: 2px solid ##008080;
   text-align: center;
 `;
 
-export const Title = styled.h2`
+export const Title = styled.p`
   margin-bottom: 20px;
   text-align: center;
+  font-size: 24px;
+  font-weight: 700;
 `;
 
 export const Input = styled.input`
   font-size: 20px;
   padding: 5px 10px;
   border: 2px solid #ccc;
-  border-radius: 7px;
+  border-radius: 5px;
   outline: none;
-  
   :focus {
-    border-color: ##008080;
+    border-color: #4287f5;
   }
 `;

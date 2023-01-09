@@ -1,28 +1,75 @@
-import {
-  AddContactsForm,
-  Container,
-  NavBar,
-  ContactsList,
-  Filter,
-} from 'components';
-import { useFilteredContacts } from 'hooks/useFilteredContacts';
-import { useToggle } from 'hooks/useToggle';
+import { ContactsForm, Filter } from 'components';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import Layout from './Layout/Layout';
+import authOperations from '../redux/auth/auth-operations';
+import { Suspense, useEffect } from 'react';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
+import PublicRoute from './PublicRoute/PublicRoute';
+import { lazy } from 'react';
+
+const HomePage = lazy(() => import('../pages/Home/HomePage'));
+const ContactsPage = lazy(() => import('../pages/Contacts/ContactsPage'));
+const LoginPage = lazy(() => import('../pages/Login/LoginPage'));
+const RegistrationPage = lazy(() =>
+  import('../pages/Registration/RegistrationPage')
+);
 
 export const App = () => {
-  const [filteredContacts, filter, setFilter] = useFilteredContacts();
-  const { isOpenFilter, isOpenAddForm, isOpenUpdateForm } = useToggle();
+  const dispatch = useDispatch();
+  const isFetchingCurrentUser = useSelector(
+    state => state.auth.isFetchingCurrentUser
+  );
+
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
 
   return (
-    <Container>
-      <NavBar />
-      {isOpenAddForm && <AddContactsForm type={'add'} />}
-      {isOpenUpdateForm && <AddContactsForm type={'update'} />}
-      {isOpenFilter && (
-        <Filter value={filter} onSearch={e => setFilter(e.target.value)} />
-      )}
+    <>
+      {!isFetchingCurrentUser && (
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<HomePage />} />
+              <Route
+                path="contacts"
+                element={
+                  <PrivateRoute redirect="/login">
+                    <ContactsPage />
+                  </PrivateRoute>
+                }
+              >
+                <Route index element={<Filter />} />
+                <Route path="add" element={<ContactsForm type={'add'} />} />
+                <Route
+                  path=":id/edit"
+                  element={<ContactsForm type={'update'} />}
+                />
+              </Route>
 
-      <ContactsList contacts={filteredContacts} />
-    </Container>
+              <Route
+                path="login"
+                element={
+                  <PublicRoute redirect="/" restricted>
+                    <LoginPage />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="registration"
+                element={
+                  <PublicRoute redirect="/" restricted>
+                    <RegistrationPage />
+                  </PublicRoute>
+                }
+              />
+            </Route>
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </Suspense>
+      )}
+    </>
   );
 };
 

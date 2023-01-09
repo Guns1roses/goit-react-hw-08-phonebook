@@ -9,17 +9,15 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { persistedFilterReducer } from './persist/presistReducer';
-import { addContactFormReducer } from './slice/addContactFormSlice';
+import { persistedAuthReducer } from './persist/persistReducer';
 import { contactsApi } from './slice/contactSlice';
-import { updateContactFormReducer } from './slice/updateContactFormSlice';
+import { filterReducer } from './slice/filterSlice';
 
 export const store = configureStore({
   reducer: {
     [contactsApi.reducerPath]: contactsApi.reducer,
-    filter: persistedFilterReducer,
-    addContactForm: addContactFormReducer,
-    updateContactForm: updateContactFormReducer,
+    filter: filterReducer,
+    auth: persistedAuthReducer,
   },
   middleware: getDefaultMiddleware => [
     ...getDefaultMiddleware({

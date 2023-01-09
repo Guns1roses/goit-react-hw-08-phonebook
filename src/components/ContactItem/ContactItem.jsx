@@ -1,95 +1,49 @@
 import PropTypes from 'prop-types';
-import {
-  Contact,
-  IconUser,
-  Item,
-  Button,
-  ButtonEdit,
-} from './ContactItem.styled';
-import { RotatingLines } from 'react-loader-spinner';
-import { RiDeleteBinLine, RiEditBoxLine } from 'react-icons/ri';
+import { Contact, ContactWrapper, ContentWrapper } from './ContactItem.styled';
 import { memo } from 'react';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { useRemoveContactsMutation } from 'redux/slice/contactSlice';
-import { useDispatch } from 'react-redux';
-import { setContactId } from 'redux/slice/updateContactFormSlice';
-import { useToggle } from 'hooks/useToggle';
+import { Paper } from '@mui/material';
+import ContactMenu from 'components/ContactMenu/ContactMenu';
+import PhoneIcon from '@mui/icons-material/Phone';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import BasicAvatar from 'components/BasicAvatar/BasicAvatar';
+import ContactName from 'components/ContactName/ContactName';
 
 const ContactItem = ({ id, name, number }) => {
-  const [removeContact, { isLoading }] = useRemoveContactsMutation();
-  const dispatch = useDispatch();
-  const { isOpenAddForm, isOpenUpdateForm, toggleAddForm, toggleUpdateForm } =
-    useToggle();
-
-  const handleRemoveContact = async id => {
-    if (isOpenUpdateForm) {
-      toggleUpdateForm();
-    }
-
-    try {
-      await removeContact(id);
-      Notify.success(`Contact successfully removed`);
-    } catch (error) {
-      Notify.error(`Something went wrong`);
-    }
-  };
-
-  const handleUpdateContact = id => {
-    if (!isOpenUpdateForm) {
-      toggleUpdateForm();
-    }
-
-    if (isOpenAddForm) {
-      toggleAddForm();
-    }
-
-    window.scrollTo(0, 0);
-    dispatch(setContactId(id));
-  };
-
   return (
-    <Item deleting={isLoading}>
-      <Contact>
-        <IconUser />
-        {name} : {number}
-      </Contact>
-      <div>
-        {' '}
-        <ButtonEdit
-          onClick={() => handleUpdateContact(id)}
-          title="Edit"
-          type="button"
-          disabled={isLoading}
-        >
-          <RiEditBoxLine />
-        </ButtonEdit>
-        <Button
-          onClick={() => handleRemoveContact(id)}
-          title="Delete"
-          type="button"
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <RotatingLines
-              strokeColor="grey"
-              strokeWidth="5"
-              animationDuration="0.75"
-              width="20"
-              visible={true}
-            />
-          ) : (
-            <RiDeleteBinLine />
-          )}
-        </Button>
-      </div>
-    </Item>
+    <li>
+      <Paper
+        sx={{ p: 2, display: 'flex', justifyContent: 'space-between' }}
+        elevation={3}
+      >
+        <ContactWrapper>
+          <BasicAvatar
+            name={name}
+            alt={name}
+            src="/static/images/avatar/2.jpg"
+            sx={{ width: 56, height: 56 }}
+          />
+
+          <ContentWrapper>
+            <Contact>
+              <AccountBoxIcon color="primary" />
+              <ContactName name={name} />
+            </Contact>
+            <Contact>
+              <PhoneIcon color="primary" />
+              {number}
+            </Contact>
+          </ContentWrapper>
+        </ContactWrapper>
+        <ContactMenu id={id} number={number} />
+      </Paper>
+    </li>
   );
 };
 
 export default memo(ContactItem);
 
 ContactItem.propTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  number: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
 };

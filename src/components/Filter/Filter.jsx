@@ -1,19 +1,24 @@
-import PropTypes from 'prop-types';
-import { FilterWrapper, Input, Title } from './Filter.styled';
+import { TextField } from '@mui/material';
+import { useFilteredContacts } from 'hooks/useFilteredContacts';
+import { FilterWrapper, Title } from './Filter.styled';
 
-const Filter = ({ onSearch, value }) => {
+const Filter = () => {
+  const { filter, setFilter } = useFilteredContacts();
   return (
     <FilterWrapper>
-      <Title>Filter</Title>
+      <Title>Search a contact</Title>
 
-      <Input onChange={onSearch} value={value} type="text" name="filter" />
+      <TextField
+        sx={{ width: '100%' }}
+        id="filter"
+        name="filter"
+        label="Search"
+        variant="outlined"
+        onChange={e => setFilter(e.target.value)}
+        value={filter}
+      />
     </FilterWrapper>
   );
 };
 
 export default Filter;
-
-Filter.propTypes = {
-  onSearch: PropTypes.func,
-  value: PropTypes.string,
-};

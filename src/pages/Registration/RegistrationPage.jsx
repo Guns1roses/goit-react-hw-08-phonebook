@@ -21,10 +21,10 @@ const RegistrationPage = () => {
       >
         <ParticlesBox />
         <CenteredContainer>
-          <PageTitle title="Create a PHONEBOOK account" />
+          <PageTitle title="Створіть обліковий запис ТЕЛЕФОННОЇ КНИГИ" />
           <RegistrationForm />
           <BottomText>
-            Already have an account? <StyledLink to="/login">Log in</StyledLink>
+            Вже є аккаунт? <StyledLink to="/login">Авторизуватися</StyledLink>
           </BottomText>
         </CenteredContainer>
       </Container>

@@ -25,9 +25,9 @@ export const useContacts = () => {
       if (res.error) {
         throw new Error();
       }
-      Notify.success(`Contact successfully removed`);
+      Notify.success(`Контакт успішно видалено`);
     } catch (error) {
-      Notify.failure(`Something went wrong`);
+      Notify.failure(`Щось пішло не так`);
     }
   };
 

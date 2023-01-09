@@ -36,7 +36,7 @@ const RegistrationForm = () => {
       setIsLoading(false);
 
       if (res.error && res.payload === 400) {
-        setErrorMessage('An account with this email already exists');
+        setErrorMessage('Обліковий запис із цією електронною адресою вже існує');
         return;
       } else if (res.error) {
         setErrorMessage('Something went wrong, try again');
@@ -48,7 +48,7 @@ const RegistrationForm = () => {
 
   return (
     <StyledForm autoComplete="off" onSubmit={formik.handleSubmit}>
-      <p>Sign up with your name, email and a password.</p>
+      <p>Зареєструйтесь, вказавши своє ім’я, адресу електронної пошти та пароль.</p>
       {errorMessage && (
         <Alert variant="outlined" severity="error">
           {errorMessage}
@@ -58,7 +58,7 @@ const RegistrationForm = () => {
         error={formik.touched.name && Boolean(formik.errors.name)}
         variant="outlined"
       >
-        <InputLabel htmlFor="name">Name</InputLabel>
+        <InputLabel htmlFor="name">Ім'я</InputLabel>
         <OutlinedInput
           id="name"
           name="name"
@@ -76,7 +76,7 @@ const RegistrationForm = () => {
         error={formik.touched.email && Boolean(formik.errors.email)}
         variant="outlined"
       >
-        <InputLabel htmlFor="email">Email</InputLabel>
+        <InputLabel htmlFor="email">Пошта</InputLabel>
         <OutlinedInput
           id="email"
           name="email"
@@ -95,7 +95,7 @@ const RegistrationForm = () => {
         error={formik.touched.password && Boolean(formik.errors.password)}
         variant="outlined"
       >
-        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+        <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
         <OutlinedInput
           id="outlined-adornment-password"
           type={showPassword ? 'text' : 'password'}
@@ -126,7 +126,7 @@ const RegistrationForm = () => {
         sx={{ mt: 2 }}
         variant="contained"
       >
-        Sign up
+        Зареєструватися
       </ButtonSubmit>
     </StyledForm>
   );

@@ -6,7 +6,7 @@ const Filter = () => {
   const { filter, setFilter } = useFilteredContacts();
   return (
     <FilterWrapper>
-      <Title>Search a contact</Title>
+      <Title>Пошук контакту</Title>
 
       <TextField
         sx={{ width: '100%' }}

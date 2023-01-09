@@ -21,11 +21,11 @@ const LoginPage = () => {
       >
         <ParticlesBox />
         <CenteredContainer>
-          <PageTitle title="Log in to PHONEBOOK" />
+          <PageTitle title="Увійдіть до ТЕЛЕФОННОЇ КНИГИ" />
           <LoginForm />
           <BottomText>
-            Don’t have an account yet?{' '}
-            <StyledLink to="/registration">Sign up</StyledLink>
+            У вас ще немає облікового запису?{' '}
+            <StyledLink to="/registration">Зареєструватися</StyledLink>
           </BottomText>
         </CenteredContainer>
       </Container>

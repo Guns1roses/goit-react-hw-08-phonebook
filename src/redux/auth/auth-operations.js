@@ -43,7 +43,7 @@ const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     await API.logOut();
     token.unSet();
   } catch (error) {
-    Notify.failure('Something went wrong, try again');
+    Notify.failure('Щось пішло не так, повторіть спробу');
     const {response: {status}} = error
       return thunkAPI.rejectWithValue(status);
   }

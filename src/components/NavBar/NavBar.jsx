@@ -93,8 +93,7 @@ const NavBar = () => {
                 to="/login"
                 sx={{ color: '#ffffff', flexShrink: 0 }}
                 variant="outlined"
-              >
-                Log in
+              >авторизуватися
               </Button>
               <Button
                 component={RouterLink}
@@ -102,7 +101,7 @@ const NavBar = () => {
                 sx={{ backgroundColor: '#1cb6cd', flexShrink: 0 }}
                 variant="contained"
               >
-                Sign up
+                Реєстрація
               </Button>
             </Box>
           )}

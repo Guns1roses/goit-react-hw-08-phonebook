@@ -14,7 +14,7 @@ const UserMenu = ({
   return (
     <>
       <Typography sx={{ mr: '10px', textAlign: 'center' }}>
-        Hello, {userName}
+        Привіт, {userName}
       </Typography>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

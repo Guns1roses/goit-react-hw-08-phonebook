@@ -15,20 +15,20 @@ const HomePage = () => {
   return (
     <Main>
       <Container sx={{ pt: 4, pb: 4 }} maxWidth="xl">
-        <PageTitle title="WELCOME TO ONLINE PHONE BOOK" />
+        <PageTitle title="ЛАСКАВО ПРОСИМО ДО ТЕЛЕФОННОЇ КНИГИ - ОНЛАЙН" />
         <HeroSection>
           <ImgWrapper>
             <Img src={image} alt="woman width notebook" width="320" />
           </ImgWrapper>
           <ContentWrapper>
             <Paper sx={{ p: 4 }} elevation={3}>
-              <ContentTitle>About</ContentTitle>
+              <ContentTitle>Про нас</ContentTitle>
               <ContentText>
-                Address Book and Contacts is a simple contacts application. You
-                can add people contact informations to the Address Book and
-                Contacts, you can edit these informations and you can call on
-                these people quickly with PHONEBOOK application. You can now
-                easily communicate via Address Book and Contacts application.
+                Телефонна книга - це проста програма для роботи з контактами. Ви можете додавати контактну
+                інформацію людей до адресної книги та контактів,
+                редагувати цю інформацію та телефонувати до
+                цих людей швидко за допомогою данної програми. Ви можете вже зараз
+                легко спілкуватися через цей додаток.
               </ContentText>
             </Paper>
           </ContentWrapper>

@@ -30,10 +30,10 @@ const LoginForm = () => {
       const res = await dispatch(authOperations.logIn(values));
       setIsLoading(false);
       if (res.error && res.payload === 400) {
-        setErrorMessage('No user found for this email/password');
+        setErrorMessage('Не знайдено жодного користувача для цієї електронної пошти/паролю');
         return;
       } else if (res.error) {
-        setErrorMessage('Something went wrong, try again');
+        setErrorMessage('Щось пішло не так, повторіть спробу');
         return;
       }
       resetForm();
@@ -42,7 +42,7 @@ const LoginForm = () => {
 
   return (
     <StyledForm autoComplete="off" onSubmit={formik.handleSubmit}>
-      <p>Enter your email address and password.</p>
+      <p>Введіть адресу електронної пошти та пароль.</p>
       {errorMessage && (
         <Alert variant="outlined" severity="error">
           {errorMessage}
@@ -53,7 +53,7 @@ const LoginForm = () => {
         error={formik.touched.email && Boolean(formik.errors.email)}
         variant="outlined"
       >
-        <InputLabel htmlFor="email">Email</InputLabel>
+        <InputLabel htmlFor="email">Електронна пошта</InputLabel>
         <OutlinedInput
           id="email"
           name="email"
@@ -72,7 +72,7 @@ const LoginForm = () => {
         error={formik.touched.password && Boolean(formik.errors.password)}
         variant="outlined"
       >
-        <InputLabel htmlFor="password">Password</InputLabel>
+        <InputLabel htmlFor="password">Пароль</InputLabel>
         <OutlinedInput
           id="password"
           type={showPassword ? 'text' : 'password'}
@@ -103,7 +103,7 @@ const LoginForm = () => {
         type="submit"
         variant="contained"
       >
-        Log in
+        авторизуватися
       </ButtonSubmit>
     </StyledForm>
   );

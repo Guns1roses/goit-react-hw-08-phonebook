@@ -16,14 +16,14 @@ const Logo = ({ sx = {} }) => {
           mr: 2,
           fontFamily: 'monospace',
           fontWeight: 700,
-          letterSpacing: '.2rem',
+          letterSpacing: '.1rem',
           color: 'inherit',
           textDecoration: 'none',
           alignItems: 'center',
           ...sx,
         }}
       >
-        <AutoStoriesIcon sx={{ fontSize: 'inherit' }} /> PHONEBOOK
+        <AutoStoriesIcon sx={{ fontSize: 'inherit' }} />  Телефонна книга
       </StyledLink>
       <StyledLinkMobile
         variant="h5"

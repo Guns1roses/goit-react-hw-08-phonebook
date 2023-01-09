@@ -50,7 +50,7 @@ const ContactMenu = ({ number, id }) => {
                 href={`tel:${number}`}
                 onClick={handleClose}
               >
-                Call
+                Зателефонувати
               </MenuItem>
             </li>
 
@@ -60,7 +60,7 @@ const ContactMenu = ({ number, id }) => {
                 to={`/contacts/${id}/edit`}
                 onClick={handleClose}
               >
-                Edit
+                Редагувати
               </MenuItem>
             </li>
 
@@ -70,14 +70,14 @@ const ContactMenu = ({ number, id }) => {
                 setOpenConfirm(true);
               }}
             >
-              Delete
+              Видалити
             </MenuItem>
           </Menu>
           <Confirm
-            title="Are you sure?"
-            text="Are you sure you want to delete this contact?"
-            btnAgree="Yes"
-            btnDisagree="No"
+            title="Ви впевнені?"
+            text="Ви впевнені, що хочете видалити цей контакт?"
+            btnAgree="Так"
+            btnDisagree="Ні"
             handleBtnAgree={() => {
               handleRemoveContact(id);
             }}

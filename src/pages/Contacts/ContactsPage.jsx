@@ -21,7 +21,7 @@ const ContactsPage = () => {
         <PageWrapper>
           <Aside>
             <Sticky>
-              <PageTitle title="The online phone book" />
+              <PageTitle title="Телефонна книга онлайн" />
               <Outlet />
             </Sticky>
           </Aside>

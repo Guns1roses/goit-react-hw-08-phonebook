@@ -11,7 +11,7 @@ const ContactsList = () => {
 
   return (
     <Wrapper>
-      <Title>Contacts</Title>
+      <Title>Контакти</Title>
       {filter && (
         <Typography mb={2}>Found: {filteredContacts.length}</Typography>
       )}
@@ -25,7 +25,7 @@ const ContactsList = () => {
           ))}
         </List>
       )}
-      {filteredContacts?.length === 0 && <Empty>Contact list is empty</Empty>}
+      {filteredContacts?.length === 0 && <Empty>Список контактів порожній</Empty>}
       {filteredContacts?.length > 0 && (
         <List>
           {filteredContacts.map(({ id, name, number }) => (

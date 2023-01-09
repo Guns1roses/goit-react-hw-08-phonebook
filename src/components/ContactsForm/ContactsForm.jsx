@@ -36,7 +36,7 @@ const ContactsForm = ({ type }) => {
                 error={formik.touched.name && Boolean(formik.errors.name)}
                 variant="outlined"
               >
-                <InputLabel htmlFor="email">Name</InputLabel>
+                <InputLabel htmlFor="email">Ім'я</InputLabel>
                 <OutlinedInput
                   id="name"
                   name="name"
@@ -55,7 +55,7 @@ const ContactsForm = ({ type }) => {
                 error={formik.touched.number && Boolean(formik.errors.number)}
                 variant="outlined"
               >
-                <InputLabel htmlFor="email">Number</InputLabel>
+                <InputLabel htmlFor="email">Номер</InputLabel>
                 <OutlinedInput
                   id="number"
                   name="number"
@@ -81,7 +81,7 @@ const ContactsForm = ({ type }) => {
               sx={{ m: 1 }}
               variant="outlined"
             >
-              Cancel
+              Скасувати
             </Button>
           </form>
         </FormWrapper>

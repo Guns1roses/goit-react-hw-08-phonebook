@@ -36,7 +36,7 @@ export const useForm = type => {
       contact => contact.name.toLowerCase() === values.name.toLowerCase()
     );
     if (isInclude) {
-      Notify.failure(`${values.name} is already in contacts`);
+      Notify.failure(`${values.name} вже в контактах`);
       return;
     }
 
@@ -46,11 +46,11 @@ export const useForm = type => {
       if (res.error) {
         throw new Error();
       }
-      Notify.success(`${values.name} was successfully added to contacts`);
+      Notify.success(`${values.name} успішно додано до контактів`);
       resetForm();
       navigate('/contacts');
     } catch (error) {
-      Notify.failure(`Something went wrong`);
+      Notify.failure(`Щось пішло не так`);
     }
   };
 
@@ -62,7 +62,7 @@ export const useForm = type => {
     );
 
     if (isInclude) {
-      Notify.failure(`${values.name} is already in contacts`);
+      Notify.failure(`${values.name} вже в контактах`);
       return;
     }
 
@@ -72,11 +72,11 @@ export const useForm = type => {
         throw new Error();
       }
 
-      Notify.success(`${values.name} was successfully update contacts`);
+      Notify.success(`${values.name} було успішно оновлено контакти`);
       resetForm();
       navigate('/contacts');
     } catch (error) {
-      Notify.failure(`Something went wrong`);
+      Notify.failure(`Щось пішло не так`);
     }
   };
   return { formik, isLoading, contact };
